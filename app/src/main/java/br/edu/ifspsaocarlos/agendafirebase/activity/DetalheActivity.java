@@ -23,7 +23,7 @@ import br.edu.ifspsaocarlos.agendafirebase.utils.Constants;
 public class DetalheActivity extends AppCompatActivity {
     private Contato c;
     String FirebaseID;
-    Firebase myFirebaseRef ;
+    Firebase myFirebaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class DetalheActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("FirebaseID")) {
 
-            FirebaseID=getIntent().getStringExtra("FirebaseID");
+            FirebaseID = getIntent().getStringExtra("FirebaseID");
             Firebase refContato = myFirebaseRef.child(FirebaseID);
 
 
@@ -72,18 +72,15 @@ public class DetalheActivity extends AppCompatActivity {
             });
 
 
-
-
         }
     }
 
 
-            @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_detalhe, menu);
-        if (FirebaseID==null)
-        {
+        if (FirebaseID == null) {
             MenuItem item = menu.findItem(R.id.delContato);
             item.setVisible(false);
         }
@@ -99,22 +96,20 @@ public class DetalheActivity extends AppCompatActivity {
                 return true;
             case R.id.delContato:
                 myFirebaseRef.child(FirebaseID).removeValue();
-                 Toast.makeText(getApplicationContext(), "Contato removido", Toast.LENGTH_SHORT).show();
-                 finish();
+                Toast.makeText(getApplicationContext(), "Contato removido", Toast.LENGTH_SHORT).show();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void salvar()
-    {
+    public void salvar() {
         String name = ((EditText) findViewById(R.id.editText1)).getText().toString();
         String fone = ((EditText) findViewById(R.id.editText2)).getText().toString();
         String email = ((EditText) findViewById(R.id.editText3)).getText().toString();
 
-        if (c==null)
-        {
+        if (c == null) {
             c = new Contato();
             c.setNome(name);
             c.setFone(fone);
@@ -122,14 +117,13 @@ public class DetalheActivity extends AppCompatActivity {
 
             myFirebaseRef.push().setValue(c);
             Toast.makeText(this, "Incluído com sucesso", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
 
             c.setNome(name);
             c.setFone(fone);
             c.setEmail(email);
 
-           myFirebaseRef.child(FirebaseID).setValue(c);
+            myFirebaseRef.child(FirebaseID).setValue(c);
 
             Toast.makeText(this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
         }
